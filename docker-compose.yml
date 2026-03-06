@@ -4,35 +4,33 @@ services:
 
   mongodb:
     image: mongo:7
-    container_name: hr-mongodb
+    container_name: recruitment-mongodb
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-      MONGO_INITDB_DATABASE: ${DB_NAME}
+    env_file:
+      - .env.example
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
     networks:
-      - hr-network
+      - recruitment-network
 
-  frontend:
+  app:
     build: .
-    container_name: hr-node-app
+    container_name: recruitment-app
     restart: always
     env_file:
-      - .env
+      - .env.example
     depends_on:
       - mongodb
     ports:
-      - "${PORT}:3000"
+      - "3000:3000"
     networks:
-      - hr-network
+      - recruitment-network
 
 volumes:
   mongo-data:
 
 networks:
-  hr-network:
+  recruitment-network:
     driver: bridge
