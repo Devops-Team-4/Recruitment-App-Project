@@ -28,17 +28,20 @@ spec:
             configMapKeyRef:
               name: recruitment-app-config
               key: MONGO_PASSWORD
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongo
 spec:
+  type: ClusterIP
   selector:
     app: mongo
   ports:
   - port: 27017
     targetPort: 27017
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -62,6 +65,7 @@ spec:
         envFrom:
         - configMapRef:
             name: recruitment-app-config
+
 ---
 apiVersion: v1
 kind: Service
