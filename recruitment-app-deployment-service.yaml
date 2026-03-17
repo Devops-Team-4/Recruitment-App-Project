@@ -59,7 +59,7 @@ spec:
     spec:
       containers:
       - name: recruitment-app
-        image: asadoblivion/recruitment-app:latest
+        image: ashutosh4782/recruitment-app:latest
         ports:
         - containerPort: 3000
         envFrom:
